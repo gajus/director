@@ -27,16 +27,16 @@ class Router implements \Psr\Log\LoggerAwareInterface {
 
     /**
      * @todo Check if query string is included.
-     * @param string $name Route name.
+     * @param string $route_name Route name.
      * @param string $url Absolute URL.
      * @return null
      */
-    public function setRoute ($name, $url) {
+    public function setRoute ($route_name, $url) {
         if ($this->logger) {
-            $this->logger->debug('Set route.', ['method' => __METHOD__, 'name' => $name, 'url' => $url]);
+            $this->logger->debug('Set route.', ['method' => __METHOD__, 'route name' => $route_name, 'url' => $url]);
         }
 
-        if (isset($this->routes[$name])) {
+        if (isset($this->routes[$route_name])) {
             throw new Exception\InvalidArgumentException('Cannot overwrite existing route.');
         } else if (!filter_var($url, \FILTER_VALIDATE_URL)) {
             throw new Exception\InvalidArgumentException('Invalid URL.');
@@ -44,19 +44,19 @@ class Router implements \Psr\Log\LoggerAwareInterface {
             throw new Exception\InvalidArgumentException('URL does not refer to a directory.');
         }
 
-        $this->routes[$name] = $url;
+        $this->routes[$route_name] = $url;
     }
 
     /**
-     * @param string $name
+     * @param string $route_name
      * @return string Route URL.
      */
-    public function getRoute ($name) {
-        if (!isset($this->routes[$name])) {
+    public function getRoute ($route_name) {
+        if (!isset($this->routes[$route_name])) {
             throw new Exception\InvalidArgumentException('Route does not exist.');
         }
 
-        return $this->routes[$name];
+        return $this->routes[$route_name];
     }
 
     /**
@@ -103,12 +103,12 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * @param string $path Relavite path to the route.
      * @param string $route Route name.
      */
-    public function url ($path = '', $route = 'default') {
+    public function url ($path = '', $route_name = 'default') {
         if (strpos($path, '/') === 0) {
             throw new Exception\InvalidArgumentException('Path is not relative to the route.');
         }
 
-        $route = $this->getRoute($route);
+        $route = $this->getRoute($route_name);
 
         return $route . ltrim($path, '/');
     }
@@ -121,6 +121,7 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * 
      * @see http://benramsey.com/blog/2008/07/http-status-redirection/
      * @param string|null $url Absolute URL
+     * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
      * @return null
      * @codeCoverageIgnore
      */

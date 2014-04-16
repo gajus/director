@@ -7,7 +7,7 @@ Utility for generating URLs relative to the predefined routes and for handling t
 
 ## Use case
 
-Inject an instance of `Router` to your template and use it to generate links. Then if your URLs schema ever changes, you will be able to adjust it in the Router configuration (subject to that the resource path does not change). It is especially convenient when your URL schema varies between the development environments.
+Use an instance of `Router` to generate URLs. It is convenient when your URL schema varies between the deployment environments.
 
 ## URLs
 
@@ -21,7 +21,7 @@ $router = new \Gajus\Director\Router('http://gajus.com/');
 
 /**
  * @todo Check if query string is included.
- * @param string $name Route name.
+ * @param string $route_name Route name.
  * @param string $url Absolute URL.
  * @return null
  */
@@ -29,21 +29,24 @@ $router->setRoute('http://static.gajus.com/', 'static');
 # null
 
 /**
- * @param string $name
- * @return string Route URL.
+ * Get absolute URL using either of the predefined routes.
+ * Requested resource path is appended to the route.
+ *
+ * @param string $path Relavite path to the route.
+ * @param string $route Route name.
  */
 $router->url();
 # http://gajus.com/
-
-// Get "static" route:
-$router->url(null, 'static');
-# http://static.gajus.com/
 
 // Get URL relative to the default route:
 $router->url('post/1');
 # http://gajus.com/post/1
 
-// Get absolute URL for the "static" route:
+// Get URL for the "static" route:
+$router->url(null, 'static');
+# http://static.gajus.com/
+
+// Get URL relative to the "static" route:
 $router->url('css/frontend.css', 'static');
 # http://static.gajus.com/css/frontend.css
 ```
@@ -59,6 +62,7 @@ $router->url('css/frontend.css', 'static');
  * 
  * @see http://benramsey.com/blog/2008/07/http-status-redirection/
  * @param string|null $url Absolute URL
+ * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
  * @return null
  * @codeCoverageIgnore
  */
@@ -66,11 +70,13 @@ $router->location();
 # null (script execution terminated)
 
 // Redirect to the default path with status code 307:
-$router->location(null, 307 );
+$router->location(null, 307);
+# null (script execution terminated)
+
+// Redirect to an arbitrary URL:
+$router->location('http://gajus.com');
 # null (script execution terminated)
 ```
-
-> Redirect status code will default to 303 when current request is POST. 302 otherwise.
 
 `location` will throw `Exception\LogicException` exception if [headers have been already sent](http://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php).
 
