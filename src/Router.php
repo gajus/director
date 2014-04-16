@@ -22,6 +22,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * @param string $url Default route URL.
      */
     public function __construct ($url) {
+        $this->logger = new \Psr\Log\NullLogger();
+        
         $this->setRoute('default', $url);
     }
 
@@ -32,10 +34,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * @return null
      */
     public function setRoute ($route_name, $url) {
-        if ($this->logger) {
-            $this->logger->debug('Set route.', ['method' => __METHOD__, 'route name' => $route_name, 'url' => $url]);
-        }
-
+        $this->logger->debug('Set route.', ['method' => __METHOD__, 'route name' => $route_name, 'url' => $url]);
+        
         if (isset($this->routes[$route_name])) {
             throw new Exception\InvalidArgumentException('Cannot overwrite existing route.');
         } else if (!filter_var($url, \FILTER_VALIDATE_URL)) {
@@ -125,10 +125,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * @return null
      */
     public function location ($url = null, $response_code = null) {
-        if ($this->logger) {
-            $this->logger->debug('Go.', ['method' => __METHOD__, 'url' => $url, 'response_code' => $response_code]);
-        }
-
+        $this->logger->debug('Go.', ['method' => __METHOD__, 'url' => $url, 'response_code' => $response_code]);
+        
         if (php_sapi_name() === 'cli') {
             throw new Exception\LogicException('Redirect cannot be performed in the CLI.');
         }
