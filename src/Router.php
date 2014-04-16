@@ -26,10 +26,10 @@ class Router implements \Psr\Log\LoggerAwareInterface {
     }
 
     /**
-     * 
-     * @param string $name Route name.
-     * @param string $url URL.
      * @todo Check if query string is included.
+     * @param string $name Route name.
+     * @param string $url Absolute URL.
+     * @return null
      */
     public function setRoute ($name, $url) {
         if ($this->logger) {
@@ -48,15 +48,15 @@ class Router implements \Psr\Log\LoggerAwareInterface {
     }
 
     /**
-     * @param string $route_name
-     * @return string Route base URL.
+     * @param string $name
+     * @return string Route URL.
      */
-    public function getRoute ($route_name) {
-        if (!isset($this->routes[$route_name])) {
+    public function getRoute ($name) {
+        if (!isset($this->routes[$name])) {
             throw new Exception\InvalidArgumentException('Route does not exist.');
         }
 
-        return $this->routes[$route_name];
+        return $this->routes[$name];
     }
 
     /**
@@ -114,16 +114,17 @@ class Router implements \Psr\Log\LoggerAwareInterface {
     }
 
     /**
-     * Redirect user agent to provided URL.
-     * If no $url provided, redirect to the referrer or
-     * (when referre is not available) to the default path.
+     * Redirect user agent to the given URL.
+     *
+     * If no $url is provided, then attempt to redirect to the referrer
+     * or (when referrer is not available) to the default route.
      * 
      * @see http://benramsey.com/blog/2008/07/http-status-redirection/
      * @param string|null $url Absolute URL
-     * @return void
+     * @return null
      * @codeCoverageIgnore
      */
-    public function go ($url = null, $response_code = null) {
+    public function location ($url = null, $response_code = null) {
         if ($this->logger) {
             $this->logger->debug('Go.', ['method' => __METHOD__, 'url' => $url, 'response_code' => $response_code]);
         }

@@ -1,5 +1,5 @@
 <?php
-class RouterTest extends PHPUnit_Framework_TestCase {
+class URLTest extends PHPUnit_Framework_TestCase {
     public function testSetDefaultRoute () {
         $router = new \Gajus\Director\Router('http://gajus.com/');
 
