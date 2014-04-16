@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/gajus/director.png?branch=master)](https://travis-ci.org/gajus/director)
 [![Coverage Status](https://coveralls.io/repos/gajus/director/badge.png?branch=master)](https://coveralls.io/r/gajus/director?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/gajus/director/version.png)](https://packagist.org/packages/gajus/director)
+[![License](https://poser.pugx.org/gajus/director/license.png)](https://packagist.org/packages/gajus/director)
 
 Utility for generating URLs relative to the predefined routes and for handling the redirects.
 
