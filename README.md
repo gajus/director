@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/gajus/director.png?branch=master)](https://travis-ci.org/gajus/director)
 [![Coverage Status](https://coveralls.io/repos/gajus/director/badge.png?branch=master)](https://coveralls.io/r/gajus/director?branch=master)
 
-`Router` is a utility for generating URLs relative to the predefined routes.
+Utility for generating URLs relative to the predefined routes and for handling the redirects.
 
 ## Use case
 
