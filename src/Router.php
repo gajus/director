@@ -23,7 +23,7 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      */
     public function __construct ($url) {
         $this->logger = new \Psr\Log\NullLogger();
-        
+
         $this->setRoute('default', $url);
     }
 
@@ -131,6 +131,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
             throw new Exception\LogicException('Redirect cannot be performed in the CLI.');
         }
 
+        // @codeCoverageIgnoreStart
+
         if (headers_sent()) {
             throw new Exception\LogicException('Headers have been already sent.');
         }
@@ -146,6 +148,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
         \http_response_code($response_code);
 
         header('Location: ' . $url);
+
+        // @codeCoverageIgnoreEnd
     }
 
     /**
