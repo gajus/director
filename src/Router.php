@@ -130,6 +130,10 @@ class Router implements \Psr\Log\LoggerAwareInterface {
             $this->logger->debug('Go.', ['method' => __METHOD__, 'url' => $url, 'response_code' => $response_code]);
         }
 
+        if (php_sapi_name() === 'cli') {
+            throw new Exception\LogicException('Redirect cannot be performed in the CLI.');
+        }
+
         if (headers_sent()) {
             throw new Exception\LogicException('Headers have been already sent.');
         }
@@ -145,8 +149,6 @@ class Router implements \Psr\Log\LoggerAwareInterface {
         \http_response_code($response_code);
 
         header('Location: ' . $url);
-
-        exit;
     }
 
     /**
