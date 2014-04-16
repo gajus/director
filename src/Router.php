@@ -123,7 +123,6 @@ class Router implements \Psr\Log\LoggerAwareInterface {
      * @param string|null $url Absolute URL
      * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
      * @return null
-     * @codeCoverageIgnore
      */
     public function location ($url = null, $response_code = null) {
         if ($this->logger) {

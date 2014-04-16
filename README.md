@@ -64,7 +64,6 @@ $router->url('css/frontend.css', 'static');
  * @param string|null $url Absolute URL
  * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
  * @return null
- * @codeCoverageIgnore
  */
 $router->location();
 # null (script execution terminated)
