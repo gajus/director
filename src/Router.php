@@ -1,16 +1,13 @@
 <?php
-namespace Gajus\Skip;
+namespace Gajus\Director;
 
 /**
- * Skip is a utility for generating URLs relative to predefined routes.
- * Inject an instance of Ship to your template and use it to generate links.
- * Then if your URLs schema ever changes, you will be able to adjust it in the
- * Ship configuration, subject to that resource path does not change.
+ * Router is a utility for generating URLs relative to the predefined routes.
  * 
- * @link https://github.com/gajus/skip for the canonical source repository
- * @license https://github.com/gajus/skip/blob/master/LICENSE BSD 3-Clause
+ * @link https://github.com/gajus/director for the canonical source repository
+ * @license https://github.com/gajus/director/blob/master/LICENSE BSD 3-Clause
  */
-class Ship implements \Psr\Log\LoggerAwareInterface {
+class Router implements \Psr\Log\LoggerAwareInterface {
     private
         /**
          * @var Psr\Log\LoggerInterface
