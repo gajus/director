@@ -149,6 +149,8 @@ class Router implements \Psr\Log\LoggerAwareInterface {
 
         header('Location: ' . $url);
 
+        exit;
+
         // @codeCoverageIgnoreEnd
     }
 
