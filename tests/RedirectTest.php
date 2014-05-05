@@ -5,7 +5,7 @@ class RedirectTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Redirect cannot be performed in the CLI.
      */
     public function testCannotRedirectInCLI () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
-        $router->location();
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
+        $locator->location();
     }
 }

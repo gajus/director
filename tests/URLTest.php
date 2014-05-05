@@ -1,9 +1,9 @@
 <?php
 class URLTest extends PHPUnit_Framework_TestCase {
     public function testSetDefaultRoute () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $this->assertSame('http://gajus.com/', $router->getRoute('default'));
+        $this->assertSame('http://gajus.com/', $locator->getRoute('default'));
     }
 
     /**
@@ -11,7 +11,7 @@ class URLTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Invalid URL.
      */
     public function testSetRouteInvalidURL () {
-        $router = new \Gajus\Director\Router('foo');
+        $locator = new \Gajus\Director\Locator('foo');
     }
 
     /**
@@ -19,15 +19,15 @@ class URLTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage URL does not refer to a directory.
      */
     public function testSetRouteURLNotBase () {
-        $router = new \Gajus\Director\Router('http://gajus.com');
+        $locator = new \Gajus\Director\Locator('http://gajus.com');
     }
 
     public function testSetCustomRoute () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $router->setRoute('foo', 'http://gajus.com/foo/');
+        $locator->setRoute('foo', 'http://gajus.com/foo/');
 
-        $this->assertSame('http://gajus.com/foo/', $router->getRoute('foo'));
+        $this->assertSame('http://gajus.com/foo/', $locator->getRoute('foo'));
     }
 
     /**
@@ -35,22 +35,22 @@ class URLTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Cannot overwrite existing route.
      */
     public function testOverwriteExistingRoute () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $router->setRoute('foo', 'http://gajus.com/foo/');
-        $router->setRoute('foo', 'http://gajus.com/foo/');
+        $locator->setRoute('foo', 'http://gajus.com/foo/');
+        $locator->setRoute('foo', 'http://gajus.com/foo/');
     }
 
     public function testGetURLDefaultRoute () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $this->assertSame('http://gajus.com/', $router->url());
+        $this->assertSame('http://gajus.com/', $locator->url());
     }
 
     public function testGetURLUsingCustomPath () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $this->assertSame('http://gajus.com/foo', $router->url('foo'));
+        $this->assertSame('http://gajus.com/foo', $locator->url('foo'));
     }
 
     /**
@@ -58,9 +58,9 @@ class URLTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Route does not exist.
      */
     public function testGetURLNotExistingRoute () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $router->url('foo', 'foobar');
+        $locator->url('foo', 'foobar');
     }
 
     /**
@@ -68,8 +68,8 @@ class URLTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Path is not relative to the route.
      */
     public function testGetURLUsingAbsoluteCustomPath () {
-        $router = new \Gajus\Director\Router('http://gajus.com/');
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
 
-        $router->url('/foo');
+        $locator->url('/foo');
     }
 }

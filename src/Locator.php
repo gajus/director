@@ -2,12 +2,12 @@
 namespace Gajus\Director;
 
 /**
- * Router is a utility for generating URLs relative to the predefined routes.
+ * Locator is a service for generating URLs relative to the predefined routes.
  * 
  * @link https://github.com/gajus/director for the canonical source repository
  * @license https://github.com/gajus/director/blob/master/LICENSE BSD 3-Clause
  */
-class Router implements \Psr\Log\LoggerAwareInterface {
+class Locator implements \Psr\Log\LoggerAwareInterface {
     private
         /**
          * @var Psr\Log\LoggerInterface
