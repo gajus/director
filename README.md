@@ -19,7 +19,7 @@ Use an instance of `Router` to generate URLs. It is convenient when your URL sch
 /**
  * @param string $url Default route URL.
  */
-$router = new \Gajus\Director\Router('http://gajus.com/');
+$locator = new \Gajus\Director\Locator('http://gajus.com/');
 
 /**
  * @todo Check if query string is included.
@@ -27,7 +27,7 @@ $router = new \Gajus\Director\Router('http://gajus.com/');
  * @param string $url Absolute URL.
  * @return null
  */
-$router->setRoute('http://static.gajus.com/', 'static');
+$locator->setRoute('http://static.gajus.com/', 'static');
 # null
 
 /**
@@ -37,19 +37,19 @@ $router->setRoute('http://static.gajus.com/', 'static');
  * @param string $path Relavite path to the route.
  * @param string $route Route name.
  */
-$router->url();
+$locator->url();
 # http://gajus.com/
 
 // Get URL relative to the default route:
-$router->url('post/1');
+$locator->url('post/1');
 # http://gajus.com/post/1
 
 // Get URL for the "static" route:
-$router->url(null, 'static');
+$locator->url(null, 'static');
 # http://static.gajus.com/
 
 // Get URL relative to the "static" route:
-$router->url('css/frontend.css', 'static');
+$locator->url('css/frontend.css', 'static');
 # http://static.gajus.com/css/frontend.css
 ```
 
@@ -67,15 +67,15 @@ $router->url('css/frontend.css', 'static');
  * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
  * @return null
  */
-$router->location();
+$locator->location();
 # null (script execution terminated)
 
 // Redirect to the default path with status code 307:
-$router->location(null, 307);
+$locator->location(null, 307);
 # null (script execution terminated)
 
 // Redirect to an arbitrary URL:
-$router->location('http://gajus.com');
+$locator->location('http://gajus.com');
 # null (script execution terminated)
 ```
 
@@ -88,25 +88,25 @@ The iverse of the `url` method is `getPath`. It is used to get the resource path
 ```php
 // Taken from ./tests/RouterTest.php
 
-$router = new \Gajus\Director\Router('https://gajus.com/foo/');
+$locator = new \Gajus\Director\Locator('https://gajus.com/foo/');
 
 $_SERVER['HTTPS'] = 'on';
 $_SERVER['HTTP_HOST'] = 'gajus.com';
 $_SERVER['REQUEST_URI'] = '/foo/';
 
-$this->assertSame('', $router->getPath());
+$this->assertSame('', $locator->getPath());
 
 $_SERVER['HTTPS'] = 'on';
 $_SERVER['HTTP_HOST'] = 'gajus.com';
 $_SERVER['REQUEST_URI'] = '/foo/bar/';
 
-$this->assertSame('bar/', $router->getPath());
+$this->assertSame('bar/', $locator->getPath());
 
 $_SERVER['HTTPS'] = 'on';
 $_SERVER['HTTP_HOST'] = 'gajus.com';
 $_SERVER['REQUEST_URI'] = '/foo/bar/?foo[bar]=1';
 
-$this->assertSame('bar/', $router->getPath());
+$this->assertSame('bar/', $locator->getPath());
 ```
 
 ## Logging
