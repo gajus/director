@@ -159,6 +159,7 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
      *
      * @param LoggerInterface $logger
      * @return null
+     * @codeCoverageIgnore
      */
     public function setLogger (\Psr\Log\LoggerInterface $logger) {
         $this->logger = $logger;
