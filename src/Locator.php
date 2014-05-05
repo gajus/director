@@ -49,14 +49,10 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
 
     /**
      * @param string $route_name
-     * @return string Route URL.
+     * @return null|string Route URL.
      */
     public function getRoute ($route_name) {
-        if (!isset($this->routes[$route_name])) {
-            throw new Exception\InvalidArgumentException('Route does not exist.');
-        }
-
-        return $this->routes[$route_name];
+        return isset($this->routes[$route_name]) ? $this->routes[$route_name] : null;
     }
 
     /**
@@ -109,6 +105,10 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
         }
 
         $route = $this->getRoute($route_name);
+
+        if ($route === null) {
+            throw new Exception\InvalidArgumentException('Route does not exist.');
+        }
 
         return $route . ltrim($path, '/');
     }

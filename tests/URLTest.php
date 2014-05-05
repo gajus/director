@@ -30,6 +30,12 @@ class URLTest extends PHPUnit_Framework_TestCase {
         $this->assertSame('http://gajus.com/foo/', $locator->getRoute('foo'));
     }
 
+    public function testGetNonExistingRoute () {
+        $locator = new \Gajus\Director\Locator('http://gajus.com/');
+
+        $this->assertNull($locator->getRoute('foo'));
+    }
+
     /**
      * @expectedException Gajus\Director\Exception\InvalidArgumentException
      * @expectedExceptionMessage Cannot overwrite existing route.
