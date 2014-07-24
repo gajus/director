@@ -27,7 +27,7 @@ $locator = new \Gajus\Director\Locator('http://gajus.com/');
  * @param string $url Absolute URL.
  * @return null
  */
-$locator->setRoute('http://static.gajus.com/', 'static');
+$locator->setRoute('static', 'http://static.gajus.com/');
 # null
 
 /**
