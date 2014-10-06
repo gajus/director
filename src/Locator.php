@@ -38,8 +38,9 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
         
         if (isset($this->routes[$route_name])) {
             throw new Exception\InvalidArgumentException('Cannot overwrite existing route.');
-        } else if (!filter_var($url, \FILTER_VALIDATE_URL)) {
-            throw new Exception\InvalidArgumentException('Invalid URL.');
+        // This fails the //protocol.less/ URLs.
+        //} else if (!filter_var($url, \FILTER_VALIDATE_URL)) {
+        //    throw new Exception\InvalidArgumentException('Invalid URL.');
         } else if (mb_strpos(strrev($url), '/') !== 0) {
             throw new Exception\InvalidArgumentException('URL does not refer to a directory.');
         }
