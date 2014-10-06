@@ -1,6 +1,6 @@
 {
 	"name": "gajus/director",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Utility for generating URLs relative to the predefined routes and for handling the redirects.",
 	"keywords": ["url", "redirect"],
 	"homepage": "https://github.com/gajus/director",
