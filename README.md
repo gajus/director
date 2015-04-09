@@ -61,7 +61,7 @@ $locator->url('css/frontend.css', 'static');
  *
  * If no $url is provided, then attempt to redirect to the referrer
  * or (when referrer is not available) to the default route.
- * 
+ *
  * @see http://benramsey.com/blog/2008/07/http-status-redirection/
  * @param string|null $url Absolute URL
  * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
@@ -108,7 +108,3 @@ $_SERVER['REQUEST_URI'] = '/foo/bar/?foo[bar]=1';
 
 $this->assertSame('bar/', $locator->getPath());
 ```
-
-## Logging
-
-Implements [PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md) `LoggerAwareInterface`.

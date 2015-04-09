@@ -3,16 +3,12 @@ namespace Gajus\Director;
 
 /**
  * Locator is a service for generating URLs relative to the predefined routes.
- * 
+ *
  * @link https://github.com/gajus/director for the canonical source repository
  * @license https://github.com/gajus/director/blob/master/LICENSE BSD 3-Clause
  */
-class Locator implements \Psr\Log\LoggerAwareInterface {
+class Locator {
     private
-        /**
-         * @var Psr\Log\LoggerInterface
-         */
-        $logger,
         /**
          * @array $routes
          */
@@ -22,8 +18,6 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
      * @param string $url Default route URL.
      */
     public function __construct ($url) {
-        $this->logger = new \Psr\Log\NullLogger();
-
         $this->setRoute('default', $url);
     }
 
@@ -34,8 +28,6 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
      * @return null
      */
     public function setRoute ($route_name, $url) {
-        $this->logger->debug('Set route.', ['method' => __METHOD__, 'route name' => $route_name, 'url' => $url]);
-        
         if (isset($this->routes[$route_name])) {
             throw new Exception\InvalidArgumentException('Cannot overwrite existing route.');
         // This fails the //protocol.less/ URLs.
@@ -59,7 +51,7 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
     /**
      * This is the inverse of the "url" method. It is used to get the resource path
      * of the current request URI relative to a specific route.
-     * 
+     *
      * @param string $route_name
      * @param string $request_uri Absolute request URI, part of which is the base URL path.
      * @return string Resource path relative to the route.
@@ -119,15 +111,13 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
      *
      * If no $url is provided, then attempt to redirect to the referrer
      * or (when referrer is not available) to the default route.
-     * 
+     *
      * @see http://benramsey.com/blog/2008/07/http-status-redirection/
      * @param string|null $url Absolute URL
      * @param int|null $response_code HTTP response code. Defaults to 303 when request method is POST, 302 otherwise.
      * @return null
      */
     public function location ($url = null, $response_code = null) {
-        $this->logger->debug('Go.', ['method' => __METHOD__, 'url' => $url, 'response_code' => $response_code]);
-        
         if (php_sapi_name() === 'cli') {
             throw new Exception\LogicException('Redirect cannot be performed in the CLI.');
         }
@@ -153,16 +143,5 @@ class Locator implements \Psr\Log\LoggerAwareInterface {
         exit;
 
         // @codeCoverageIgnoreEnd
-    }
-
-    /**
-     * Sets a logger instance on the object
-     *
-     * @param LoggerInterface $logger
-     * @return null
-     * @codeCoverageIgnore
-     */
-    public function setLogger (\Psr\Log\LoggerInterface $logger) {
-        $this->logger = $logger;
     }
 }

@@ -1,6 +1,6 @@
 {
 	"name": "gajus/director",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Utility for generating URLs relative to the predefined routes and for handling the redirects.",
 	"keywords": ["url", "redirect"],
 	"homepage": "https://github.com/gajus/director",
@@ -16,8 +16,7 @@
 		"php": ">=5.4"
 	},
 	"require-dev": {
-	    "satooshi/php-coveralls": "dev-master",
-	    "psr/log": "1.0.0"
+	    "satooshi/php-coveralls": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
